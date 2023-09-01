@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Photos</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>My Photos</h1>
+    </header>
+    
+    <div class="container">
+        <div id="img_unit">
+            <!--              <div class="photo">
+                <img src="img/img01.jpg">
+                <div class="inner"><p>コメント1 <span>nickcname</span></p></div>
+            </div>
+            <div class="photo">
+                <img src="img/img02.jpg">
+                <div class="inner"><p>コメント2 <span>nickcname</span></p></div>
+            </div> -->
+            <div class = "photo" v-for="Photo in photos">
+                <img :src="Photo.path">
+                <div class="inner"><p>{{Photo.caption}}<span>{{Photo.name}}
+                </span></p></div>
+            </div>
+        </div>
+
+        <!-- <div id="vue_unit">
+            {{message}}
+        </div> -->
+    </div>
+
+    <!-- download したjqueryを使えるようにする -->
+    <script src="jq/jquery.min.js"></script>
+
+    <!-- vue.jsを使えるようにする-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+    <script>
+        var app =new Vue({
+            el: '#img_unit',
+            data:{
+                photos: [] //空の配列を指定
+            },
+            created: function(){
+                var self = this;
+                // ajaxでjsonを取得し、dataで受け取る
+                $.getJSON('https://h2o-space.com/htmlbook/images.php', function(data){
+                    self.photos = data;
+                });
+            }
+        });
+
+        /*
+        // コンストラクタでデータ初期化
+        var app = new Vue({
+            el: '#vue_unit',
+            data: {
+                message : 'Vue.jsで書き換えました'
+            }
+        });
+        */
+
+</script>
+
+    
+</body>
+</html>

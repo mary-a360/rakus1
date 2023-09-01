@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Photos</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>My Photos</h1>
+    </header>
+    
+    <div class="container">
+        <div id="img_unit">
+            <!--              <div class="photo">
+                <img src="img/img01.jpg">
+                <div class="inner"><p>コメント1 <span>nickcname</span></p></div>
+            </div>
+            <div class="photo">
+                <img src="img/img02.jpg">
+                <div class="inner"><p>コメント2 <span>nickcname</span></p></div>
+            </div> -->
+        </div>
+
+    </div>
+
+    <!-- download したjqueryを使えるようにする -->
+    <script src="jq/jquery.min.js"></script>
+
+    <script>
+        // $('#img_unit').html('ここに、画像リストが表示されます');
+        // $('#img_unit').css('margin-top', '100px');
+
+        //下のように書くこともできる(セレクターが同じ場合に、メソッドをつないでいける)
+        //$('#img_unit').html('ここに、画像リストが表示されます').css('margin-top', '100px');
+
+        // 第1引数から取得したjsonデータを、function内の"data"で受け取っている
+        $.getJSON('https://h2o-space.com/htmlbook/images.php', function(data){
+            //alert('データを受信しました');
+
+            for (var i=0; i<data.length; i++){
+                // 新しい要素を作る
+                $('<div class="photo"></div>')
+                .append('<img src="' + data[i].path + '">')
+                .append('<div class="inner"><p>' + data[i].caption + '<span>' +
+                    data[i].name + '</span></p></div>')
+                .appendTo('#img_unit');
+            }
+        });
+
+        /*
+        以下要素を作って、img_unitに追加
+         <div class="photo">
+            <img src="img/img01.jpg">
+            <div
+            class="inner"><p>caption<span>name</span></p></div>
+        </div>
+        */
+</script>
+
+    
+</body>
+</html>
